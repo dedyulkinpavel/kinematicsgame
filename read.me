@@ -1,0 +1,14 @@
+*Все команды подаются из папки проекта
+
+- Установка зависимостей
+pip install -r ./requirements.txt
+
+- Сборка дистрибутива (в папку dist):
+ python -m PyInstaller --onefile --windowed main.py
+
+ Структура проекта
+ ./ui содержит ui файлы форм и диалогов, созданные в qt designer
+ ./db sqllite базу pymunk.db, init_db.sql содержит DDL использованные в базе
+
+ Стартовая точка main.py загружает основное окно.
+ За запуск настроенной симуляции отвечает logic.py.
