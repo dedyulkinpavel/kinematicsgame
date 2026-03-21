@@ -1,11 +1,21 @@
 from PyQt6.QtCore import QModelIndex, QAbstractTableModel, Qt
 
 
+def map_shape(value):
+    match value:
+        case 0:
+            return "SQUARE"
+        case 1:
+            return "CIRCLE"
+        case 2:
+            return "TRIANGLE"
+
+
 class PMTableModel(QAbstractTableModel):
     def __init__(self, pm_objects=None):
         super().__init__()
         self.pm_objects = pm_objects or []
-        self._headers = ["X", "Y", "FX", "FY"]
+        self._headers = ["X", "Y", "FX", "FY", "El", "SHAPE"]
 
     def rowCount(self, parent=QModelIndex()):
         return len(self.pm_objects)
@@ -36,11 +46,18 @@ class PMTableModel(QAbstractTableModel):
                 return str(pm_object.fx)
             elif index.column() == 3:
                 return str(pm_object.fy)
+            elif index.column() == 4:
+                return str(pm_object.el)
+            elif index.column() == 5:
+                return map_shape(pm_object.shape)
+
+
 
         elif role == Qt.ItemDataRole.TextAlignmentRole:
             return Qt.AlignmentFlag.AlignCenter
 
         return None
+
 
     def headerData(self, section, orientation, role=Qt.ItemDataRole.DisplayRole):
         if role == Qt.ItemDataRole.DisplayRole and orientation == Qt.Orientation.Horizontal:

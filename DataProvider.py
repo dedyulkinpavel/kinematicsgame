@@ -5,15 +5,17 @@ from PMStorage import PMObject
 
 def save_pm_elem(cur, pm_object):
    cur.execute("""
-       INSERT INTO pm_objects (id, x, y, fx, fy, color)
-       VALUES (?, ?, ?,?,?,?)
+       INSERT INTO pm_objects (id, x, y, fx, fy, color, el, shape)
+       VALUES (?, ?, ?,?,?,?, ?, ?)
        ON CONFLICT(id) DO UPDATE SET
            x = excluded.x,
            y = excluded.y,
            fx = excluded.fx,
            fy = excluded.fy,
-           color = excluded.color
-   """, (pm_object.id, pm_object.x,pm_object.y,pm_object.fx,pm_object.fy, pm_object.color))
+           color = excluded.color,
+           el = excluded.el,
+           shape = excluded.shape
+   """, (pm_object.id, pm_object.x,pm_object.y,pm_object.fx,pm_object.fy, pm_object.color, pm_object.el, pm_object.shape))
 
 def save_pg_parameters(cur, pg_parameters):
    cur.execute("""
@@ -45,11 +47,11 @@ class DataProvider:
     def load_pm_objects(self):
         con = sqlite3.connect(self.db)
         cur = con.cursor()
-        result = cur.execute("""select id, x, y, fx, fy, color from pm_objects""").fetchall()
+        result = cur.execute("""select id, x, y, fx, fy, color, el, shape from pm_objects""").fetchall()
 
         pm_objects = []
         for elem in result:
-            pm_objects.append(PMObject(elem[0], elem[1], elem[2], elem[3], elem[4], elem[5]))
+            pm_objects.append(PMObject(elem[0], elem[1], elem[2], elem[3], elem[4], elem[5], elem[6], elem[7]))
 
         con.close()
 

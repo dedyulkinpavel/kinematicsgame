@@ -15,5 +15,7 @@ CREATE TABLE pm_objects (
     y     INTEGER,
     fx    INTEGER,
     fy    INTEGER,
-    color INTEGER
+    color INTEGER,
+    el REAL DEFAULT (0.5),
+    shape INTEGER DEFAULT (0)
 );

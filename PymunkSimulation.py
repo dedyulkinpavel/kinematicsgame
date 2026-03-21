@@ -1,3 +1,4 @@
+import pygame
 import pymunk.pygame_util
 from Square import Square
 from PGParameters import PGParameters
@@ -15,14 +16,18 @@ class PymunkSimulation():
         self.pmObjects = []
         for elem in pmObjects:
 
-            figure = Square(ColorUtils.int_to_rgb(elem.color))
-            Square.create_square(figure, (elem.x, elem.y), self.space)
+            figure = Square(ColorUtils.int_to_rgb(elem.color),elem.el)
+            match elem.shape:
+                case 0: Square.create_square(figure, (elem.x, elem.y), self.space)
+                case 1: Square.create_circle(figure, (elem.x, elem.y), self.space)
             figure.apply_force(figure.body, elem.fx, elem.fy)
             self.pmObjects.append(figure)
 
     def step(self):
+
         for elem in self.pmObjects:
             elem.step_it()
+
 
         self.space.step(1 / self.fps)
 

@@ -9,7 +9,7 @@ import ColorUtils
 
 
 class EditPMObject(QDialog):
-    onAcceptSignal = pyqtSignal(int, int, int, int, int)
+    onAcceptSignal = pyqtSignal(int, int, int, int, int, float, int)
 
     def __init__(self):
         super().__init__()
@@ -28,7 +28,7 @@ class EditPMObject(QDialog):
 
     def on_accepted(self):
         self.onAcceptSignal.emit(self.pmXspinBox.value(), self.pmYspinBox.value(), self.pmFXspinBox.value(),
-                                 self.pmFYspinBox.value(), self.color)
+                                 self.pmFYspinBox.value(), self.color, self.pmELspinBox.value(),self.pmShapespinBox.value())
 
     def on_selColor(self):
 

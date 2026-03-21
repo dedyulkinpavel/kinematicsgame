@@ -19,7 +19,7 @@ class PygameRender():
         self.surface = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
         self.draw_options = pymunk.pygame_util.DrawOptions(self.surface)
-
+        self.pause = False
         self.pymunkSim = pymunksim
         self.timer = threading.Timer(1 / self.fps, lambda: self.on_render_step())
         self.timer.start()
@@ -32,7 +32,12 @@ class PygameRender():
            if i.type == pg.QUIT:
                pg.quit()
                return
-       self.pymunkSim.step()
+           if i.type == pg.KEYDOWN:
+               if i.key == pg.K_SPACE:
+                   self.pause = not self.pause
+
+       if not self.pause:
+           self.pymunkSim.step()
        self.pymunkSim.space.debug_draw(self.draw_options)
        pg.display.flip()
        self.clock.tick(self.fps)
