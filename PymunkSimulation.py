@@ -20,6 +20,7 @@ class PymunkSimulation():
             match elem.shape:
                 case 0: Square.create_square(figure, (elem.x, elem.y), self.space)
                 case 1: Square.create_circle(figure, (elem.x, elem.y), self.space)
+                case 2: Square.create_triangle(figure, (elem.x, elem.y), self.space)
             figure.apply_force(figure.body, elem.fx, elem.fy)
             self.pmObjects.append(figure)
 
