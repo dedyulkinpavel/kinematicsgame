@@ -110,8 +110,8 @@ class ParametersWindow(QMainWindow):
         self.refresh_objects_grid()
         self.load_pg_parameters()
 
-    def on_add(self, x, y, fx, fy, color, el, shape):
-        pmob = PMObject(str(uuid.uuid4()), x, y, fx, fy, color,el,shape)
+    def on_add(self, x, y, fx, fy, color, el, shape, size):
+        pmob = PMObject(str(uuid.uuid4()), x, y, fx, fy, color,el,shape,size)
         self.pmObjectsViewModel.add_pm_object(pmob)
 
     def del_pmobject(self):

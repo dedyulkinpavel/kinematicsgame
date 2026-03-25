@@ -15,7 +15,7 @@ class PMTableModel(QAbstractTableModel):
     def __init__(self, pm_objects=None):
         super().__init__()
         self.pm_objects = pm_objects or []
-        self._headers = ["X", "Y", "FX", "FY", "El", "SHAPE"]
+        self._headers = ["X", "Y", "FX", "FY", "El", "SHAPE", "SIZE"]
 
     def rowCount(self, parent=QModelIndex()):
         return len(self.pm_objects)
@@ -50,6 +50,8 @@ class PMTableModel(QAbstractTableModel):
                 return str(pm_object.el)
             elif index.column() == 5:
                 return map_shape(pm_object.shape)
+            elif index.column() == 6:
+                return str(pm_object.size)
 
 
 

@@ -47,11 +47,11 @@ class DataProvider:
     def load_pm_objects(self):
         con = sqlite3.connect(self.db)
         cur = con.cursor()
-        result = cur.execute("""select id, x, y, fx, fy, color, el, shape from pm_objects""").fetchall()
+        result = cur.execute("""select id, x, y, fx, fy, color, el, shape, size from pm_objects""").fetchall()
 
         pm_objects = []
         for elem in result:
-            pm_objects.append(PMObject(elem[0], elem[1], elem[2], elem[3], elem[4], elem[5], elem[6], elem[7]))
+            pm_objects.append(PMObject(elem[0], elem[1], elem[2], elem[3], elem[4], elem[5], elem[6], elem[7], elem[8]))
 
         con.close()
 

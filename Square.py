@@ -58,6 +58,5 @@ class Square:
 
     def step_it(self):
         self.body.apply_force_at_world_point((self.force_x, self.force_y), self.body.position)
-
         speed = self.body.velocity.length
         self.shape.color = self.color

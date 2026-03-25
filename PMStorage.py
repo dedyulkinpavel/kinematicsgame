@@ -1,7 +1,7 @@
 import ColorUtils
 
 class PMObject:
-    def __init__(self,id,x,y,fx,fy, color,el,shape):
+    def __init__(self,id,x,y,fx,fy, color,el,shape, size):
         self.id = id
         self.x = x
         self.y = y
@@ -10,6 +10,7 @@ class PMObject:
         self.color = color
         self.el = el
         self.shape = shape
+        self.size = size
 
 class PMStorage:
     def __init__(self, pm_objects=None):

@@ -8,9 +8,9 @@ import ColorUtils
 class FileObjectsProvider():
     def export_pm(self, filename, pm_objects):
         with open(filename, 'w', encoding='utf-8') as f:
-            print('id,x,y,fx,fy,color,el,shape', file=f)
+            print('id,x,y,fx,fy,color,el,shape,size', file=f)
             for elem in pm_objects:
-                s = f'{elem.id},{elem.x},{elem.y},{elem.fx},{elem.fy},{ColorUtils.to_str(elem.color)},{elem.el},{elem.shape}'
+                s = f'{elem.id},{elem.x},{elem.y},{elem.fx},{elem.fy},{ColorUtils.to_str(elem.color)},{elem.el},{elem.shape},{elem.size}'
                 print(s, file=f)
 
     def import_pm(self, filename):
@@ -20,7 +20,7 @@ class FileObjectsProvider():
             reader = csv.reader(f, delimiter=',')
             h = next(reader)
             for row in reader:
-                r.append(PMObject(row[0],int(row[1]),int(row[2]),int(row[3]),int(row[4]),ColorUtils.from_str(row[5]),float(row[6]),int(row[7])))
+                r.append(PMObject(row[0],int(row[1]),int(row[2]),int(row[3]),int(row[4]),ColorUtils.from_str(row[5]),float(row[6]),int(row[7]), int(row[8])))
         return r
       except Exception as e:
           ErrorUtils.show_error("Импорт", e)

@@ -16,7 +16,7 @@ class PymunkSimulation():
         self.pmObjects = []
         for elem in pmObjects:
 
-            figure = Square(ColorUtils.int_to_rgb(elem.color),elem.el)
+            figure = Square(ColorUtils.int_to_rgb(elem.color),elem.el,0.8,1,elem.size)
             match elem.shape:
                 case 0: Square.create_square(figure, (elem.x, elem.y), self.space)
                 case 1: Square.create_circle(figure, (elem.x, elem.y), self.space)
