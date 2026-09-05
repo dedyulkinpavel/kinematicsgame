@@ -52,6 +52,28 @@ class Square:
         self.shape = shape
         return body, shape
 
+    def create_hexagon(self, pos, space):
+        side_length = self.size
+        vertices = [
+            (side_length, 0),
+            (side_length / 2, side_length * (3 ** 0.5) / 2),
+            (-side_length / 2, side_length * (3 ** 0.5) / 2),
+            (-side_length, 0),
+            (-side_length / 2, -side_length * (3 ** 0.5) / 2),
+            (side_length / 2, -side_length * (3 ** 0.5) / 2)
+        ]
+
+        moment = pymunk.moment_for_poly(self.mass, vertices)
+        body = pymunk.Body(self.mass, moment)
+        body.position = pos
+        shape = pymunk.Poly(body, vertices)
+        shape.friction = self.friction
+        shape.elasticity = self.elasticity
+        space.add(body, shape)
+        self.body = body
+        self.shape = shape
+        return body, shape
+
     def apply_force(self, body, force_x, force_y):
         self.force_x = force_x
         self.force_y = force_y

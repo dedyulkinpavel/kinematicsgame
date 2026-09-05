@@ -27,21 +27,19 @@ class PygameRender():
 
 
     def on_render_step(self):
-       self.surface.fill(pg.Color('black'))
-       for i in pg.event.get():
-           if i.type == pg.QUIT:
-               pg.quit()
-               return
-           if i.type == pg.KEYDOWN:
-               if i.key == pg.K_SPACE:
-                   self.pause = not self.pause
+        self.surface.fill(pg.Color('black'))
+        for i in pg.event.get():
+            if i.type == pg.QUIT:
+                pg.quit()
+                return
+            if i.type == pg.KEYDOWN:
+                if i.key == pg.K_SPACE:
+                    self.pause = not self.pause
 
-       if not self.pause:
-           self.pymunkSim.step()
-       self.pymunkSim.space.debug_draw(self.draw_options)
-       pg.display.flip()
-       self.clock.tick(self.fps)
-       self.timer = threading.Timer(1 / self.fps, lambda: self.on_render_step())
-       self.timer.start()
-
-
+        if not self.pause:
+            self.pymunkSim.step()
+        self.pymunkSim.space.debug_draw(self.draw_options)
+        pg.display.flip()
+        self.clock.tick(self.fps)
+        self.timer = threading.Timer(1 / self.fps, lambda: self.on_render_step())
+        self.timer.start()

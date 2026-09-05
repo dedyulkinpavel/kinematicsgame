@@ -16,11 +16,12 @@ class PymunkSimulation():
         self.pmObjects = []
         for elem in pmObjects:
 
-            figure = Square(ColorUtils.int_to_rgb(elem.color),elem.el,0.8,1,elem.size)
+            figure = Square(ColorUtils.int_to_rgb(elem.color), elem.el, 0.8, 1, elem.size)
             match elem.shape:
                 case 0: Square.create_square(figure, (elem.x, elem.y), self.space)
                 case 1: Square.create_circle(figure, (elem.x, elem.y), self.space)
                 case 2: Square.create_triangle(figure, (elem.x, elem.y), self.space)
+                case 3: Square.create_hexagon(figure, (elem.x, elem.y), self.space)
             figure.apply_force(figure.body, elem.fx, elem.fy)
             self.pmObjects.append(figure)
 
@@ -29,6 +30,4 @@ class PymunkSimulation():
         for elem in self.pmObjects:
             elem.step_it()
 
-
         self.space.step(1 / self.fps)
-

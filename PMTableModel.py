@@ -9,6 +9,8 @@ def map_shape(value):
             return "CIRCLE"
         case 2:
             return "TRIANGLE"
+        case 3:
+            return "HEXAGON"
 
 
 class PMTableModel(QAbstractTableModel):
@@ -36,7 +38,6 @@ class PMTableModel(QAbstractTableModel):
 
         pm_object = self.pm_objects[index.row()]
 
-
         if role == Qt.ItemDataRole.DisplayRole:
             if index.column() == 0:
                 return str(pm_object.x)
@@ -52,8 +53,6 @@ class PMTableModel(QAbstractTableModel):
                 return map_shape(pm_object.shape)
             elif index.column() == 6:
                 return str(pm_object.size)
-
-
 
         elif role == Qt.ItemDataRole.TextAlignmentRole:
             return Qt.AlignmentFlag.AlignCenter

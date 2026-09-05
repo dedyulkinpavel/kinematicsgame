@@ -1,7 +1,7 @@
 import ColorUtils
 
 class PMObject:
-    def __init__(self,id,x,y,fx,fy, color,el,shape, size):
+    def __init__(self, id, x, y, fx, fy, color, el, shape, size):
         self.id = id
         self.x = x
         self.y = y
@@ -15,17 +15,17 @@ class PMObject:
 class PMStorage:
     def __init__(self, pm_objects=None):
         if pm_objects is None:
-           self.listOjects = []
+            self.listOjects = []
         else:
             self.listOjects = pm_objects
 
     def reset(self, pm_objects=None):
         if pm_objects is None:
-           self.listOjects = []
+            self.listOjects = []
         else:
             self.listOjects = pm_objects
 
-    def add_pm_oject(self,pmObject):
+    def add_pm_oject(self, pmObject):
         self.listOjects.append(pmObject)
 
     def delete_pm_oject(self, id):
@@ -34,6 +34,5 @@ class PMStorage:
             if elem.id == id:
                 found = elem
                 break
-        self.listOjects.remove(found)
-
-
+        if found:
+            self.listOjects.remove(found)
