@@ -13,7 +13,7 @@ from PGParameters import PGParameters
 from PMStorage import PMObject
 from PMTableModel import PMTableModel
 from logic import logic
-
+from ErrorUtils import clear_log_file
 
 class ParametersWindow(QMainWindow):
     def __init__(self):
@@ -132,6 +132,9 @@ class ParametersWindow(QMainWindow):
         fps = self.pmFpsSpinBox.value()
         logic.run_pygame(PGParameters(g, f, w, h, fps))
 
+    def closeEvent(self, event):
+        clear_log_file("app.log")
+        event.accept()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
