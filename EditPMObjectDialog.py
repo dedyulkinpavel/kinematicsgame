@@ -23,12 +23,18 @@ class EditPMObject(QDialog):
         self.set_color(color)
         self.colorLabel.setFixedHeight(50)
 
+        self.pmShapespinBox.setRange(0, 20)
+        self.pmShapespinBox.setToolTip("0 - круг; 3 и более - правильный многоугольник с указанным числом углов")
+
         self.accepted.connect(self.on_accepted)
         self.colorButton.clicked.connect(self.on_selColor)
 
     def on_accepted(self):
+        shape_value = self.pmShapespinBox.value()
+        if shape_value in (1, 2):
+            shape_value = 0
         self.onAcceptSignal.emit(self.pmXspinBox.value(), self.pmYspinBox.value(), self.pmFXspinBox.value(),
-                                 self.pmFYspinBox.value(), self.color, self.pmELspinBox.value(),self.pmShapespinBox.value(), self.pmsizespinBox.value())
+                                 self.pmFYspinBox.value(), self.color, self.pmELspinBox.value(), shape_value, self.pmsizespinBox.value())
 
     def on_selColor(self):
 

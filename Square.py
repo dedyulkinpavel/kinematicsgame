@@ -1,3 +1,4 @@
+import math
 import pymunk.pygame_util
 
 
@@ -11,7 +12,7 @@ class Square:
         self.color = color
 
     def create_circle(self, pos, space):
-        radius = self.size // 2
+        radius = self.size / 2
         body = pymunk.Body(self.mass, pymunk.moment_for_circle(self.mass, 0, radius))
         body.position = pos
         shape = pymunk.Circle(body, radius)
@@ -62,6 +63,37 @@ class Square:
             (-side_length / 2, -side_length * (3 ** 0.5) / 2),
             (side_length / 2, -side_length * (3 ** 0.5) / 2)
         ]
+
+        moment = pymunk.moment_for_poly(self.mass, vertices)
+        body = pymunk.Body(self.mass, moment)
+        body.position = pos
+        shape = pymunk.Poly(body, vertices)
+        shape.friction = self.friction
+        shape.elasticity = self.elasticity
+        space.add(body, shape)
+        self.body = body
+        self.shape = shape
+        return body, shape
+
+    def create_regular_polygon(self, n, pos, space):
+        # 0 — круг
+        if n == 0:
+            return self.create_circle(pos, space)
+        # значения 1 и 2 недопустимы, считаем кругом
+        if n < 3:
+            return self.create_circle(pos, space)
+
+        side_length = self.size
+        angle = 2 * math.pi / n
+        # Радиус описанной окружности, чтобы сторона многоугольника равнялась self.size
+        R = side_length / (2 * math.sin(math.pi / n))
+
+        vertices = []
+        for i in range(n):
+            theta = -math.pi / 2 + i * angle
+            x = R * math.cos(theta)
+            y = R * math.sin(theta)
+            vertices.append((x, y))
 
         moment = pymunk.moment_for_poly(self.mass, vertices)
         body = pymunk.Body(self.mass, moment)
